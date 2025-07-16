@@ -1,6 +1,12 @@
 # TODO
 
-- [] setup AWS
-- [] setup GithubActions
-- [] route to https://collegerideout.dev
-- [] start landing page ("resume")
+- [] AWS stack
+    - [] setup EC2
+    - [] Install NGINX
+    - [] Install node
+    - [] setup GithubActions
+        - [] build vite
+        - [] ssh to ec2
+        - [] upload dist
+        - [] restart nginx 
+    - [] route 53 to https://collegerideout.dev
