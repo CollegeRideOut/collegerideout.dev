@@ -71,7 +71,8 @@ export const Route = createRootRoute({
                     height: '100%',
                     display: 'flex',
                     flexDirection: 'column',
-                    flex: '1 1 auto'
+                    flex: '1 1 auto',
+                    textDecoration: 'none', color: theme.colors.text, fontSize: 18,
                 }}
             >
 
@@ -96,15 +97,16 @@ export const Route = createRootRoute({
                             display: 'flex',
                             columnGap: 20
                         }}>
-                            <Link to="/stats" style={linkStyle}>
+                            <Link to="/about" style={linkStyle}>
                                 Stats
                             </Link>
                             <Link to="/work" style={linkStyle}>
-                                Work
+                                Resume
                             </Link>
                         </div>
                     </div>
                     <Outlet />
+                    <div style={{ width: '100%', height: 50 }}></div>
                 </ThemeContext.Provider>
             </div>
         )
