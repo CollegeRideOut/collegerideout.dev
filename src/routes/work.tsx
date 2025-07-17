@@ -188,7 +188,7 @@ function Work() {
     const [skills, setSkills] = useState(initSkills);
     const [experience, setExperience] = useState(initExperience)
     const [projects, setProjects] = useState(intProjects)
-    const [skillfilterVals, setSkillsFillterVals] = useState<[number, number][]>([])
+    const [skillfilterVals, setSkillsFillterVals] = useState<string[]>([])
     const genHtmlForPdf = () => {
         let x = document.getElementById('resume');
         console.log(x?.innerHTML)
@@ -294,12 +294,14 @@ function Work() {
                                                         <div key={`skill-${idx}}`}
                                                             onClick={() => {
                                                                 const skillsCopy: typeof skills = JSON.parse(JSON.stringify(skills))
-                                                                const setSkillsFillterValsCopy: typeof skills = JSON.parse(JSON.stringify(setSkillsFillterVals))
-                                                                if (skillsCopy[currSkillIdx].vals[idx].on){
-
-                                                                }
+                                                                let skillsFillterValsCopy: typeof skillfilterVals = JSON.parse(JSON.stringify(skillfilterVals))
                                                                 skillsCopy[currSkillIdx].vals[idx].on = !skillsCopy[currSkillIdx].vals[idx].on
-
+                                                                if (skillsCopy[currSkillIdx].vals[idx].on) {
+                                                                    skillsFillterValsCopy.push(skillsCopy[currSkillIdx].vals[idx].value)
+                                                                } else {
+                                                                    skillsFillterValsCopy = skillsFillterValsCopy.filter((sk) => sk !== skillsCopy[currSkillIdx].vals[idx].value)
+                                                                }
+                                                                setSkillsFillterVals(skillsFillterValsCopy)
                                                                 setSkills(skillsCopy);
                                                             }}
                                                             style={{
@@ -314,17 +316,36 @@ function Work() {
                                         )
                                     })}
                                 </div>
-                                <div
-                                    style={{
-                                        width: '100%',
-                                        display: 'flex',
-                                        justifyContent: 'center',
-                                        flexDirection: 'row',
-                                        fontWeight: 'bold'
+                                {
+                                    experience.filter((ex) => {
+                                        if (skillfilterVals.length === 0) { return true; }
+                                        for (let x of skillfilterVals) {
+                                            if (ex._skills.includes(x)) { return true; }
+                                        }
+                                        return false
+                                    }).length > 0 &&
+                                    (
+                                        <div
+                                            style={{
+                                                width: '100%',
+                                                display: 'flex',
+                                                justifyContent: 'center',
+                                                flexDirection: 'row',
+                                                fontWeight: 'bold'
 
-                                    }}
-                                >Experience</div>
-                                {experience.map((ex, exIdx) => {
+                                            }}
+                                        >
+                                            Experience
+                                        </div>
+                                    )
+                                }
+                                {experience.filter((ex) => {
+                                    if (skillfilterVals.length === 0) { return true; }
+                                    for (let x of skillfilterVals) {
+                                        if (ex._skills.includes(x)) { return true; }
+                                    }
+                                    return false
+                                }).map((ex, exIdx) => {
                                     return (
                                         <div
                                             style={{
@@ -405,19 +426,38 @@ function Work() {
                                         </div>
                                     )
                                 })}
-                                <div
-                                    style={{
-                                        width: '100%',
-                                        display: 'flex',
-                                        justifyContent: 'center',
-                                        flexDirection: 'row',
-                                        fontWeight: 'bold'
+                                {
+                                    projects.filter((pj) => {
+                                        if (skillfilterVals.length === 0) { return true; }
+                                        for (let x of skillfilterVals) {
+                                            if (pj._skills.includes(x)) { return true; }
+                                        }
+                                        return false
+                                    }).length > 0 &&
+                                    (
+                                        <div
+                                            style={{
+                                                width: '100%',
+                                                display: 'flex',
+                                                justifyContent: 'center',
+                                                flexDirection: 'row',
+                                                fontWeight: 'bold'
 
-                                    }}
-                                >Projects</div>
+                                            }}
+                                        >
+                                            Projects
+                                        </div>
+                                    )
+                                }
 
 
-                                {projects.map((pj, pjIdx) => {
+                                {projects.filter((pj) => {
+                                    if (skillfilterVals.length === 0) { return true; }
+                                    for (let x of skillfilterVals) {
+                                        if (pj._skills.includes(x)) { return true; }
+                                    }
+                                    return false
+                                }).map((pj, pjIdx) => {
                                     return (
                                         <div
                                             style={{
