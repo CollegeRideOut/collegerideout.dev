@@ -85,7 +85,7 @@ export const Route = createRootRoute({
                         padding: 30,
                         paddingLeft: 60,
                         paddingRight: 60,
-                        marginBottom: 20,
+                        marginBottom: 40,
                     }}>
                         <div>
                             <Link to="/" style={linkStyle}>

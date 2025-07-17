@@ -1,7 +1,6 @@
 import { createFileRoute } from '@tanstack/react-router'
 import { ThemeContext } from './__root'
 import { useContext } from 'react'
-import GitHubCalendar from 'react-github-calendar'
 
 export const Route = createFileRoute('/')({
     component: Index,
@@ -24,7 +23,12 @@ function Index() {
                     width: '100%',
                     display: 'flex',
                     flexDirection: 'row',
-                    justifyContent: 'center'
+                    justifyContent: 'center',
+                    textWrap: 'wrap',
+                    whiteSpace: 'pre-line',
+
+                                    wordWrap: 'break-word',
+                                    wordBreak: 'break-word'
                 }}
             >
                 <div
@@ -32,13 +36,13 @@ function Index() {
                         backgroundColor: theme.colors.primary,
                         borderRadius: 25,
                         width: '70%',
+
                     }}
                 >
                     <div style={{
-                            width: '100%',
-                            display: 'flex',
-                            flexDirection: 'column',
-                            padding: 20
+                        display: 'flex',
+                        flexDirection: 'column',
+                        padding: 40,
                     }}>
                         <div style={{
                             width: '100%',
@@ -60,16 +64,29 @@ function Index() {
                             <div
                                 style={{
                                     display: 'flex',
-                                    flexDirection: 'row',
-                                    justifyContent: 'center',
+                                    flexDirection: 'column',
                                     color: theme.colors.text,
+                                    width: '100%',
+                                    textWrap: 'wrap',
+                                    wordWrap: 'break-word',
+                                    wordBreak: 'break-word',
+                                    height: '100%',
+                                    overflowWrap: 'break-word'
+
                                 }}>
                                 <p style={{ fontSize: 50 }}>Full-Stack Developer</p>
+                                <p style={{ textWrap: 'wrap',
+
+                                    wordWrap: 'break-word',
+                                    wordBreak: 'break-word'
+                                }}>
+                                
+                                    With a strong background in software engineering, technical leadership, and product innovation, I excel at turning complex challenges into scalable, high-impact solutionssssalways staying ahead by leveraging the latest technologies and best practices.
+                                </p>
                             </div>
 
                         </div>
 
-                            <GitHubCalendar username="CollegeRideOut" />
                     </div>
                 </div>
             </div>
