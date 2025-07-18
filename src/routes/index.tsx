@@ -1,6 +1,7 @@
 import { createFileRoute } from '@tanstack/react-router'
 import { ThemeContext } from './__root'
 import { useContext } from 'react'
+import { Heatmap } from '../component/heatmap'
 
 export const Route = createFileRoute('/')({
     component: Index,
@@ -27,13 +28,13 @@ function Index() {
                     textWrap: 'wrap',
                     whiteSpace: 'pre-line',
 
-                                    wordWrap: 'break-word',
-                                    wordBreak: 'break-word'
+                    wordWrap: 'break-word',
+                    wordBreak: 'break-word'
                 }}
             >
                 <div
                     style={{
-                        backgroundColor: theme.colors.primary,
+                        //backgroundColor: theme.colors.primary,
                         borderRadius: 25,
                         width: '70%',
 
@@ -42,7 +43,7 @@ function Index() {
                     <div style={{
                         display: 'flex',
                         flexDirection: 'column',
-                        padding: 40,
+                        //padding: 40,
                     }}>
                         <div style={{
                             width: '100%',
@@ -75,17 +76,19 @@ function Index() {
 
                                 }}>
                                 <p style={{ fontSize: 50 }}>Full-Stack Developer</p>
-                                <p style={{ textWrap: 'wrap',
+                                <p style={{
+                                    textWrap: 'wrap',
 
                                     wordWrap: 'break-word',
                                     wordBreak: 'break-word'
                                 }}>
-                                
+
                                     With a strong background in software engineering, technical leadership, and product innovation, I excel at turning complex challenges into scalable, high-impact solutionssssalways staying ahead by leveraging the latest technologies and best practices.
                                 </p>
                             </div>
 
                         </div>
+                        <Heatmap />
 
                     </div>
                 </div>

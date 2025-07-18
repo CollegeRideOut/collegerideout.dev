@@ -266,6 +266,8 @@ function Work() {
                                             <div key={`${currSkill.title}-${currSkillIdx}`}
                                                 style={{
                                                     display: !pdf ? 'flex' : (currSkill.visible ? 'flex' : 'none'),
+
+                                                    color: currSkill.visible ? 'inherit' : '#808080',
                                                     flexDirection: 'row',
                                                     height: 'min-content',
                                                     rowGap: 50,
@@ -350,7 +352,9 @@ function Work() {
                                         <div
                                             style={{
                                                 display: !pdf ? 'flex' : (ex.visible ? 'flex' : 'none'),
-                                                flexDirection: 'column', rowGap: 20
+                                                flexDirection: 'column',
+                                                rowGap: 20,
+                                                color: ex.visible ? 'inherit' : '#808080',
                                             }}
                                             key={`ex-${exIdx}`}
 
@@ -396,6 +400,8 @@ function Work() {
                                                             key={`ex-des${desIdx}`}
                                                             style={{
                                                                 display: !pdf ? 'list-item' : (des.visible ? 'list-item' : 'none'),
+
+                                                                color: des.visible ? 'inherit' : '#808080',
                                                                 listStyleType: 'disc'
                                                             }}>
                                                             {des.value}
@@ -462,7 +468,8 @@ function Work() {
                                         <div
                                             style={{
                                                 display: !pdf ? 'flex' : (pj.visible ? 'flex' : 'none'),
-                                                flexDirection: 'column', rowGap: 20
+                                                flexDirection: 'column', rowGap: 20,
+                                                color: pj.visible ? 'inherit' : '#808080',
                                             }}
                                             key={`pj-${pjIdx}`}
                                         >
@@ -474,7 +481,9 @@ function Work() {
                                                     projectsCopy[pjIdx].visible = !projectsCopy[pjIdx].visible
                                                     setProjects(projectsCopy)
                                                 }}
-                                                style={{ fontWeight: 'bold', display: 'flex', flexDirection: 'row', justifyContent: 'space-between' }}
+                                                style={{
+                                                    fontWeight: 'bold', display: 'flex', flexDirection: 'row', justifyContent: 'space-between'
+                                                }}
                                             >
                                                 <div
                                                     style={{ rowGap: 10, fontWeight: 'bold', display: 'flex', flexDirection: 'column', }}
@@ -501,6 +510,7 @@ function Work() {
                                                             key={`pj-des${desIdx}`}
                                                             style={{
                                                                 display: !pdf ? 'list-item' : (des.visible ? 'list-item' : 'none'),
+                                                                color: des.visible ? 'inherit' : '#808080',
                                                                 listStyleType: 'disc'
                                                             }}>
                                                             {des.value}
@@ -543,6 +553,6 @@ function Work() {
     }
 
 
-    return webAndPdf(true)
+    return webAndPdf(false)
 
 }

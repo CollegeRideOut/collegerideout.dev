@@ -81,8 +81,8 @@ export const Route = createRootRoute({
                         display: 'flex',
                         flexDirection: 'row',
                         color: theme.colors.text,
-                        background: theme.colors.primary,
                         justifyContent: 'space-between',
+                        borderBottom: `1px solid ${theme.colors.text}`,
                         padding: 30,
                         paddingLeft: 60,
                         paddingRight: 60,
@@ -97,8 +97,8 @@ export const Route = createRootRoute({
                             display: 'flex',
                             columnGap: 20
                         }}>
-                            <Link to="/about" style={linkStyle}>
-                                Stats
+                            <Link to="/work" style={linkStyle}>
+                                Resume
                             </Link>
                             <Link to="/work" style={linkStyle}>
                                 Resume
