@@ -6,7 +6,7 @@ import HeatMap from '@uiw/react-heat-map';
 import { FaGithub } from "react-icons/fa";
 import { FaLinkedin } from "react-icons/fa";
 import { SiLeetcode } from "react-icons/si";
-
+import { useMediaQuery } from 'react-responsive';
 export const Route = createFileRoute('/')({
     component: Index,
 })
@@ -50,6 +50,8 @@ function Index() {
         submissionCalendar: []
     })
     const [githubData, setGithubData] = useState<any>(null)
+
+    const isTabletOrMobile = useMediaQuery({ query: '(max-width: 1224px)' })
 
     useEffect(() => {
         async function getData() {
@@ -138,7 +140,7 @@ function Index() {
                             width: '100%',
 
                             display: 'flex',
-                            flexDirection: 'row',
+                            flexDirection: isTabletOrMobile ? 'column' : 'row',
                             alignItems: 'center',
                             columnGap: 60,
                         }}>
@@ -165,7 +167,7 @@ function Index() {
 
                                     alignItems: 'center'
                                 }}>
-                                <p style={{ fontSize: 50 }}>Full-Stack Developer</p>
+                                <p style={{ fontSize:isTabletOrMobile  ? '10vw' : 60, fontWeight: 'bold' }}>Full-Stack Developer</p>
                                 <div style={{
                                     display: 'flex',
                                     flexDirection: 'row',
@@ -174,7 +176,7 @@ function Index() {
 
                                 }}>
                                     {allLinks.map((l, idx) => {
-                                        return <a 
+                                        return <a
                                             key={`a-${idx}`}
                                             style={{ color: 'inherit' }}
                                             href={l.link}
@@ -219,7 +221,7 @@ function Index() {
                                     {leetData.difficult.map((stat: any, idx: any) => {
                                         return (
                                             <div
-                                            key={`diff-${idx}`}
+                                                key={`diff-${idx}`}
                                                 style={{
                                                     height: 50,
                                                     width: '100%',
@@ -265,6 +267,7 @@ function Index() {
                                 style={{
                                     display: 'flex',
                                     flexDirection: 'column',
+                                
                                     rowGap: 20
                                     //border: `1px solid ${theme.colors.text}`
                                 }}

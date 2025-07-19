@@ -2,6 +2,10 @@ import { createRootRoute, Link, Outlet } from '@tanstack/react-router'
 import { createContext, useEffect, useState } from 'react'
 import { MdOutlineDarkMode } from "react-icons/md";
 import { MdDarkMode } from "react-icons/md";
+import { useMediaQuery } from 'react-responsive'
+import { GiHamburgerMenu } from "react-icons/gi";
+
+import { CgCloseO } from "react-icons/cg";
 //import { TanStackRouterDevtools } from '@tanstack/react-router-devtools'
 
 
@@ -42,6 +46,11 @@ const init_theme: {
         theme: 'light' | 'dark',
         mobile: boolean,
         colors: typeof colors_dark,
+        isDesktopOrLaptop: boolean,
+        isBigScreen: boolean,
+        isTabletOrMobile: boolean,
+        isPortrait: boolean,
+        isRetina: boolean,
     }
     toggleTheme: () => void,
     toggleMobile: () => void
@@ -50,6 +59,11 @@ const init_theme: {
     vals: {
         theme: 'light',
         mobile: false,
+        isDesktopOrLaptop: true,
+        isBigScreen: false,
+        isTabletOrMobile: false,
+        isPortrait: false,
+        isRetina: false,
         colors: colors_dark
     },
     toggleTheme: () => { },
@@ -61,17 +75,40 @@ export const ThemeContext = createContext(init_theme)
 export const Route = createRootRoute({
     component: () => {
 
+        const isDesktopOrLaptop = useMediaQuery({
+            query: '(min-width: 1224px)'
+        })
+        const isBigScreen = useMediaQuery({ query: '(min-width: 1824px)' })
+        const isTabletOrMobile = useMediaQuery({ query: '(max-width: 1224px)' })
+        const isPortrait = useMediaQuery({ query: '(orientation: portrait)' })
+        const isRetina = useMediaQuery({ query: '(min-resolution: 2dppx)' })
+        const [toggleDropDown, setToggleDropDown] = useState(false)
+        useEffect(() => { setToggleDropDown(false) }, [isTabletOrMobile])
+
         const [theme, setTheme] = useState<{
             theme: 'light' | 'dark',
             mobile: boolean,
             colors: typeof colors_dark,
-        }>({ theme: 'dark', mobile: false, colors: colors_dark })
+            isDesktopOrLaptop: boolean,
+            isBigScreen: boolean,
+            isTabletOrMobile: boolean,
+            isPortrait: boolean,
+            isRetina: boolean,
+
+        }>({
+            theme: 'dark', mobile: false, colors: colors_dark,
+            isDesktopOrLaptop,
+            isBigScreen,
+            isTabletOrMobile,
+            isPortrait,
+            isRetina,
+        })
         useEffect(() => {
             let x = localStorage.getItem('theme')
             if (x && x === 'light') {
-                setTheme({ theme: 'light', mobile: false, colors: colors_light })
+                setTheme({ ...theme, theme: 'light', mobile: false, colors: colors_light })
             } else {
-                setTheme({ theme: 'dark', mobile: false, colors: colors_dark })
+                setTheme({ ...theme, theme: 'dark', mobile: false, colors: colors_dark })
             }
         }, [])
 
@@ -93,6 +130,15 @@ export const Route = createRootRoute({
         }
 
         const linkStyle: React.CSSProperties = { textDecoration: 'none', color: theme.colors.text, fontSize: 20 }
+        const menuLinks = (<>
+
+            <Link to="/" style={{ ...linkStyle, fontSize: 14 }}>
+                HOME
+            </Link>
+            <Link to="/work" style={{ ...linkStyle, fontSize: 14 }}>
+                RESUME
+            </Link>
+        </>)
         return (
             <div
                 style={{
@@ -107,48 +153,90 @@ export const Route = createRootRoute({
             >
 
                 <ThemeContext.Provider value={{ vals: theme, toggleTheme, toggleMobile }}>
-                    <div style={{
-                        display: 'flex',
-                        flexDirection: 'row',
-                        color: theme.colors.text,
-                        justifyContent: 'space-between',
-                        alignItems: 'center',
-                        borderBottom: `1px solid ${theme.colors.text}`,
-                        padding: 30,
-                        paddingLeft: 60,
-                        paddingRight: 60,
-                    }}>
-                        <div
-                            style={{ width: 'min-content' }}
-                        >
-                            <Link to="/" style={linkStyle}>
-                                CollegeRideOut
-                            </Link>
-                        </div>
-                        <div style={{
+                    <div
+                        style={{
                             display: 'flex',
-                            flex: 1,
-                            justifyContent: 'center',
-                            columnGap: 20,
-                            width: 'max-content',
-                            textDecoration: 'underline',
-                            textUnderlineOffset: 4,
-                        }}>
+                            flexDirection: 'row',
+                            color: theme.colors.text,
+                            justifyContent: isBigScreen ? 'center' : 'space-between',
+                            alignItems: 'center',
+                            borderBottom: `1px solid ${theme.colors.text}`,
+                            padding: 30,
+                            paddingLeft: 60,
+                            paddingRight: 60,
+                        }}
+                    >
+                        <div
 
-                            <Link to="/" style={{ ...linkStyle, fontSize: 14 }}>
-                                HOME
-                            </Link>
-                            <Link to="/work" style={{ ...linkStyle, fontSize: 14 }}>
-                                RESUME
-                            </Link>
-                        </div>
-                        <div onClick={() => { toggleTheme() }}
+                            style={{
+                                width: '100%',
+                                display: 'flex',
+                                maxWidth: 1824,
+                                flexDirection: 'row',
+                                color: theme.colors.text,
+                                alignItems: 'center',
+                                justifyContent: 'space-between'
+                            }}
 
-                            style={{ cursor: 'pointer', width: 'min-content' }}
                         >
-                            {theme.theme === 'dark' ? <MdDarkMode size={30} /> : <MdOutlineDarkMode size={30} />}
+                            <div
+                                style={{ width: isTabletOrMobile ? '100%' : 'min-content', display: 'flex', alignItems: 'center' }}
+                            >
+                                {isTabletOrMobile &&
+                                    (<div style={{ width: 'min-content', cursor: 'pointer' }} onClick={() => { setToggleDropDown(!toggleDropDown) }}>
+                                        {!toggleDropDown ? <GiHamburgerMenu /> : <CgCloseO size={20} />}
+                                    </div>)
+                                }
+
+                                <Link to="/" style={{ ...linkStyle, width: '100%', display: 'flex', justifyContent: 'center' }}>
+                                    CollegeRideOut
+                                </Link>
+                            </div>
+
+
+                            {!isTabletOrMobile && <div style={{
+                                display: 'flex',
+                                flex: 1,
+                                justifyContent: 'center',
+                                columnGap: 20,
+                                width: 'max-content',
+                                textDecoration: 'underline',
+                                textUnderlineOffset: 4,
+                            }}>
+
+                                {menuLinks}
+                            </div>}
+                            <div onClick={() => { toggleTheme() }}
+
+                                style={{ cursor: 'pointer', width: 'min-content' }}
+                            >
+                                {theme.theme === 'dark' ? <MdDarkMode size={30} /> : <MdOutlineDarkMode size={30} />}
+                            </div>
+
                         </div>
                     </div>
+
+                    {isTabletOrMobile && toggleDropDown && (
+
+                        <div>
+                            <div style={{
+                                display: 'flex',
+                                flexDirection: 'column',
+                                backgroundColor: theme.colors.background,
+                                rowGap: 20,
+                                position: 'absolute',
+                                width: '100%',
+                                height: '100%',
+                                left: 0,
+                                borderRadius: 10,
+                                padding: 10,
+                            }}>
+                                {menuLinks}
+                            </div>
+
+                        </div>
+                    )}
+
                     <div
 
                         style={{
@@ -161,16 +249,18 @@ export const Route = createRootRoute({
                             alignItems: 'center',
                         }}
                     >
+
                         <div
                             style={{
                                 display: 'flex',
                                 flexDirection: 'column',
 
+                                maxWidth: 1824,
                                 height: '100%',
                                 flex: '1 1 auto',
-                                width: '70%',
-                                borderLeft: `1px solid ${theme.colors.text}`,
-                                borderRight: `1px solid ${theme.colors.text}`,
+                                width: isTabletOrMobile ? '100%' : '70%',
+                                borderLeft: `${isTabletOrMobile ? '0px' : '1px'} solid ${theme.colors.text}`,
+                                borderRight: `${isTabletOrMobile ? '0px' : '1px'} solid ${theme.colors.text}`,
                             }}
                         >
                             <Outlet />

@@ -1,6 +1,7 @@
 import { createFileRoute } from '@tanstack/react-router'
 import { useContext, useState } from 'react';
 import { ThemeContext } from './__root';
+import { useMediaQuery } from 'react-responsive';
 
 export const Route = createFileRoute('/work')({
     component: Work,
@@ -191,6 +192,14 @@ function Work() {
     const [projects, ] = useState(intProjects)
     const [skillfilterVals, setSkillsFillterVals] = useState<string[]>([])
 
+        //const isDesktopOrLaptop = useMediaQuery({
+        //    query: '(min-width: 1224px)'
+        //})
+        //const isBigScreen = useMediaQuery({ query: '(min-width: 1824px)' })
+        const isTabletOrMobile = useMediaQuery({ query: '(max-width: 1224px)' })
+        //const isMobile = useMediaQuery({ query: '(max-width: 767px)' })
+        //const isPortrait = useMediaQuery({ query: '(orientation: portrait)' })
+        //const isRetina = useMediaQuery({ query: '(min-resolution: 2dppx)' })
 
     return (
         <div id={'resume'} style={{
@@ -223,7 +232,7 @@ function Work() {
                 <div
                     style={{
                         borderRadius: 25,
-                        width: '70%',
+                        width: isTabletOrMobile ? '90%' : '70%',
                         height: '100%',
                         //backgroundColor: 'black'
                     }}
@@ -267,11 +276,11 @@ function Work() {
                                                 display: !pdf ? 'flex' : (currSkill.visible ? 'flex' : 'none'),
 
                                                 color: currSkill.visible ? 'inherit' : '#808080',
-                                                flexDirection: 'row',
+                                                flexDirection: isTabletOrMobile ? 'column': 'row',
                                                 height: 'min-content',
                                                 rowGap: 50,
                                                 columnGap: 10,
-                                                alignItems: 'center',
+                                                alignItems: isTabletOrMobile ? 'start': 'center',
 
                                             }}
                                         >
