@@ -30,11 +30,13 @@ const colors_dark = {
     secondary: '#9A8C98',
     heapmapBackground: '#2e2e4b',
     heatmap: {
-        0: '#3a3a5c',
-        1: '#66667a',
-        4: '#9999aa',
-        8: '#cccccc',
-        20: '#ffffff'
+        0: '#4a4e69',
+        1: '#f4decd',
+        2: '#e4b293',
+        4: '#d48462',
+        8: '#c2533a',
+        10: '#ad001d',
+        20: '#6c0012'
     }
 }
 
@@ -107,7 +109,7 @@ export const Route = createRootRoute({
                     }}>
                         <div>
                             <Link to="/" style={linkStyle}>
-                                CollegeRideOut
+                                cro.dev
                             </Link>
                         </div>
                         <div style={{

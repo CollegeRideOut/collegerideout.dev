@@ -202,6 +202,8 @@ function Work() {
                 flexDirection: 'column',
                 display: 'flex',
                 flex: '1 1 auto',
+                marginBottom: 100,
+                textWrap: 'nowrap',
                 height: '100%',
                 color: theme.colors.text
 
@@ -272,14 +274,16 @@ function Work() {
                                                     height: 'min-content',
                                                     rowGap: 50,
                                                     columnGap: 10,
-                                                    alignItems: 'center'
+                                                    alignItems: 'center',
 
                                                 }}
                                             >
                                                 <div
                                                     style={{
-                                                        width: 110,
-                                                        fontWeight: 'bold'
+                                                        display: 'flex',
+                                                        width: 130,
+                                                        fontWeight: 'bold',
+                                                        textWrap: 'nowrap'
                                                     }}
                                                     onClick={() => {
                                                         const skillCopy: typeof skills = JSON.parse(JSON.stringify(skills))
@@ -291,29 +295,43 @@ function Work() {
                                                 >
                                                     {currSkill.title}
                                                 </div>
-                                                {
-                                                    (currSkill.vals.map((skill, idx) => (
-                                                        <div key={`skill-${idx}}`}
-                                                            onClick={() => {
-                                                                const skillsCopy: typeof skills = JSON.parse(JSON.stringify(skills))
-                                                                let skillsFillterValsCopy: typeof skillfilterVals = JSON.parse(JSON.stringify(skillfilterVals))
-                                                                skillsCopy[currSkillIdx].vals[idx].on = !skillsCopy[currSkillIdx].vals[idx].on
-                                                                if (skillsCopy[currSkillIdx].vals[idx].on) {
-                                                                    skillsFillterValsCopy.push(skillsCopy[currSkillIdx].vals[idx].value)
-                                                                } else {
-                                                                    skillsFillterValsCopy = skillsFillterValsCopy.filter((sk) => sk !== skillsCopy[currSkillIdx].vals[idx].value)
-                                                                }
-                                                                setSkillsFillterVals(skillsFillterValsCopy)
-                                                                setSkills(skillsCopy);
-                                                            }}
-                                                            style={{
-                                                                background: !skill.on ? theme.colors.primary : theme.colors.secondary,
-                                                                //height: 'min-content',
-                                                                padding: 8,
-                                                                borderRadius: '10%',
-                                                            }}
-                                                        > {skill.value}</div>
-                                                    )))}
+                                                <div
+                                                    style={{
+                                                        color: currSkill.visible ? 'inherit' : '#808080',
+                                                        width: '100%',
+                                                        display: 'flex',
+                                                        flexWrap: 'wrap',
+                                                        flexDirection: 'row',
+                                                        rowGap: 10,
+                                                        columnGap: 10,
+                                                        alignItems: 'center',
+                                                    }}
+                                                >
+                                                    {
+                                                        (currSkill.vals.map((skill, idx) => (
+                                                            <div key={`skill-${idx}}`}
+                                                                onClick={() => {
+                                                                    const skillsCopy: typeof skills = JSON.parse(JSON.stringify(skills))
+                                                                    let skillsFillterValsCopy: typeof skillfilterVals = JSON.parse(JSON.stringify(skillfilterVals))
+                                                                    skillsCopy[currSkillIdx].vals[idx].on = !skillsCopy[currSkillIdx].vals[idx].on
+                                                                    if (skillsCopy[currSkillIdx].vals[idx].on) {
+                                                                        skillsFillterValsCopy.push(skillsCopy[currSkillIdx].vals[idx].value)
+                                                                    } else {
+                                                                        skillsFillterValsCopy = skillsFillterValsCopy.filter((sk) => sk !== skillsCopy[currSkillIdx].vals[idx].value)
+                                                                    }
+                                                                    setSkillsFillterVals(skillsFillterValsCopy)
+                                                                    setSkills(skillsCopy);
+                                                                }}
+                                                                style={{
+                                                                    background: !skill.on ? theme.colors.primary : theme.colors.secondary,
+                                                                    //height: 'min-content',
+                                                                    padding: 8,
+                                                                    borderRadius: '10%',
+                                                                }}
+                                                            > {skill.value}</div>
+
+                                                        )))}
+                                                </div>
                                             </div>
                                         )
                                     })}
