@@ -132,10 +132,10 @@ export const Route = createRootRoute({
         const linkStyle: React.CSSProperties = { textDecoration: 'none', color: theme.colors.text, fontSize: 20 }
         const menuLinks = (<>
 
-            <Link to="/" style={{ ...linkStyle, fontSize: 14 }}>
+            <Link to="/" style={{ ...linkStyle, fontSize: 14 }} onClick={()=>setToggleDropDown(false)}>
                 HOME
             </Link>
-            <Link to="/work" style={{ ...linkStyle, fontSize: 14 }}>
+            <Link to="/work" style={{ ...linkStyle, fontSize: 14 }} onClick={()=>setToggleDropDown(false)}>
                 RESUME
             </Link>
         </>)

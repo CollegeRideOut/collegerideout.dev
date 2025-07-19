@@ -52,6 +52,8 @@ function Index() {
     const [githubData, setGithubData] = useState<any>(null)
 
     const isTabletOrMobile = useMediaQuery({ query: '(max-width: 1224px)' })
+    const isMobile = useMediaQuery({ query: '(max-width: 500px)' })
+    useEffect(()=>{console.log(isMobile)})
 
     useEffect(() => {
         async function getData() {
@@ -167,7 +169,7 @@ function Index() {
 
                                     alignItems: 'center'
                                 }}>
-                                <p style={{ fontSize:isTabletOrMobile  ? '10vw' : 60, fontWeight: 'bold' }}>Full-Stack Developer</p>
+                                <p style={{ fontSize: isTabletOrMobile ? '10vw' : 60, fontWeight: 'bold' }}>Full-Stack Developer</p>
                                 <div style={{
                                     display: 'flex',
                                     flexDirection: 'row',
@@ -188,14 +190,17 @@ function Index() {
                             </div>
 
                         </div>
-                        <div>
+                        <div style={{ width: '100%' }}>
 
 
                             <div
                                 style={{
                                     display: 'flex',
                                     flexDirection: 'column',
-                                    rowGap: 20
+                                    rowGap: 20,
+                                    width: '100%'
+
+
                                     //border: `1px solid ${theme.colors.text}`
                                 }}
                             >
@@ -242,21 +247,24 @@ function Index() {
                                         )
                                     })}
                                 </div>
-                                <HeatMap
-                                    value={leetData ? (
-                                        leetData.submissionCalendar
-                                    ) : []}
-                                    startDate={(() => {
-                                        let x = new Date()
-                                        x.setFullYear(x.getFullYear() - 1)
-                                        return x
-                                    })()}
-                                    style={{ color: theme.colors.text, }}
-                                    endDate={new Date()}
-                                    weekLabels={['', '', '', '', '', '', '']}
-                                    panelColors={theme.colors.heatmap}
+                                <div style={{ width: '100%', display: 'flex', flexDirection: 'row', justifyContent: 'center' }}>
+                                    <HeatMap
+                                        value={leetData ? (
+                                            leetData.submissionCalendar
+                                        ) : []}
+                                        startDate={(() => {
+                                            let x = new Date()
+                                            x.setFullYear(x.getFullYear() - 1)
+                                            return x
+                                        })()}
+                                        width={isTabletOrMobile ? (isMobile ? 300 : 500) : 750}
+                                        style={{ color: theme.colors.text, }}
+                                        endDate={new Date()}
+                                        weekLabels={['', '', '', '', '', '', '']}
+                                        panelColors={theme.colors.heatmap}
 
-                                />
+                                    />
+                                </div>
                             </div>
 
 
@@ -267,8 +275,10 @@ function Index() {
                                 style={{
                                     display: 'flex',
                                     flexDirection: 'column',
-                                
+
+                                    alignItems: 'center',
                                     rowGap: 20
+                                    //
                                     //border: `1px solid ${theme.colors.text}`
                                 }}
                             >
@@ -279,6 +289,7 @@ function Index() {
                                         display: 'flex',
                                         width: '100%',
                                         justifyContent: 'center',
+                                        alignItems: 'center',
                                         fontSize: 30
                                     }}
                                 >Github Stats</div>
@@ -291,10 +302,11 @@ function Index() {
                                         x.setFullYear(x.getFullYear() - 1)
                                         return x
                                     })()}
-                                    style={{ color: theme.colors.text, }}
+                                        width={isTabletOrMobile ? (isMobile ? 300 : 500) : 750}
+                                    style={{ color: theme.colors.text, display: 'flex', justifyContent: 'center' }}
                                     endDate={(() => {
                                         let x = new Date()
-                                        x.setMonth(x.getMonth() + 1)
+                                        x.setMonth(x.getMonth() )
                                         return x
                                     })()}
                                     weekLabels={['', '', '', '', '', '', '']}
