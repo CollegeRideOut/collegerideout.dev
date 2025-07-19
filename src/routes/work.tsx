@@ -5,6 +5,7 @@ import { ThemeContext } from './__root';
 export const Route = createFileRoute('/work')({
     component: Work,
 })
+let pdf = false;
 
 
 
@@ -186,391 +187,382 @@ const intProjects = [
 function Work() {
     const { vals: theme } = useContext(ThemeContext);
     const [skills, setSkills] = useState(initSkills);
-    const [experience, setExperience] = useState(initExperience)
-    const [projects, setProjects] = useState(intProjects)
+    const [experience, ] = useState(initExperience)
+    const [projects, ] = useState(intProjects)
     const [skillfilterVals, setSkillsFillterVals] = useState<string[]>([])
-    const genHtmlForPdf = () => {
-        let x = document.getElementById('resume');
-        console.log(x?.innerHTML)
-    }
 
 
-    const webAndPdf = (pdf = false) => {
-        return (
-            <div id={'resume'} style={{
-                width: '100%',
-                flexDirection: 'column',
-                display: 'flex',
-                flex: '1 1 auto',
-                marginBottom: 100,
-                textWrap: 'nowrap',
-                height: '100%',
-                color: theme.colors.text
+    return (
+        <div id={'resume'} style={{
+            width: '100%',
+            flexDirection: 'column',
 
-            }}>
-                <div onClick={() => genHtmlForPdf()} >PREEEESSSS MEEEE </div>
+            marginTop: 40,
+            display: 'flex',
+            flex: '1 1 auto',
+            marginBottom: 100,
+            textWrap: 'nowrap',
+            height: '100%',
+            color: theme.colors.text
+
+        }}>
+            <div
+                style={{
+                    width: '100%',
+                    flex: '1 1 auto',
+                    height: '100%',
+                    display: 'flex',
+                    flexDirection: 'row',
+                    justifyContent: 'center',
+                    textWrap: 'wrap',
+                    whiteSpace: 'pre-line',
+                    wordWrap: 'break-word',
+                    wordBreak: 'break-word'
+                }}
+            >
                 <div
                     style={{
-                        width: '100%',
-                        flex: '1 1 auto',
+                        borderRadius: 25,
+                        width: '70%',
                         height: '100%',
-                        display: 'flex',
-                        flexDirection: 'row',
-                        justifyContent: 'center',
-                        textWrap: 'wrap',
-                        whiteSpace: 'pre-line',
-                        wordWrap: 'break-word',
-                        wordBreak: 'break-word'
+                        //backgroundColor: 'black'
                     }}
                 >
-                    <div
-                        style={{
-                            borderRadius: 25,
-                            width: '70%',
-                            height: '100%',
-                            //backgroundColor: 'black'
-                        }}
-                    >
+                    <div style={{
+                        display: 'flex',
+                        flexDirection: 'column',
+                        //padding: 40,
+                    }}>
+
                         <div style={{
+
                             display: 'flex',
+                            justifyContent: 'center',
                             flexDirection: 'column',
-                            //padding: 40,
+                            rowGap: 40
+
+
                         }}>
 
-                            <div style={{
+                            <div
+                                style={{
+                                    width: '100%',
+                                    display: 'flex',
 
-                                display: 'flex',
-                                justifyContent: 'center',
-                                flexDirection: 'column',
-                                rowGap: 40
+                                    justifyContent: 'center',
+                                    flexDirection: 'row',
+                                    rowGap: 50,
+                                    fontWeight: 'bold'
+                                }}
 
+                            >
+                                Skills
+                            </div>
+                            <div style={{ display: 'flex', flexDirection: 'column', rowGap: 20 }}>
+                                {skills.map((currSkill, currSkillIdx) => {
+                                    return (
 
-                            }}>
-
-                                <div
-                                    style={{
-                                        width: '100%',
-                                        display: 'flex',
-
-                                        justifyContent: 'center',
-                                        flexDirection: 'row',
-                                        rowGap: 50,
-                                        fontWeight: 'bold'
-                                    }}
-
-                                >
-                                    Skills
-                                </div>
-                                <div style={{ display: 'flex', flexDirection: 'column', rowGap: 20 }}>
-                                    {skills.map((currSkill, currSkillIdx) => {
-                                        return (
-
-                                            <div key={`${currSkill.title}-${currSkillIdx}`}
-                                                style={{
-                                                    display: !pdf ? 'flex' : (currSkill.visible ? 'flex' : 'none'),
-
-                                                    color: currSkill.visible ? 'inherit' : '#808080',
-                                                    flexDirection: 'row',
-                                                    height: 'min-content',
-                                                    rowGap: 50,
-                                                    columnGap: 10,
-                                                    alignItems: 'center',
-
-                                                }}
-                                            >
-                                                <div
-                                                    style={{
-                                                        display: 'flex',
-                                                        width: 130,
-                                                        fontWeight: 'bold',
-                                                        textWrap: 'nowrap'
-                                                    }}
-                                                    onClick={() => {
-                                                        const skillCopy: typeof skills = JSON.parse(JSON.stringify(skills))
-
-                                                        skillCopy[currSkillIdx].visible = !skillCopy[currSkillIdx].visible
-
-                                                        setSkills(skillCopy)
-                                                    }}
-                                                >
-                                                    {currSkill.title}
-                                                </div>
-                                                <div
-                                                    style={{
-                                                        color: currSkill.visible ? 'inherit' : '#808080',
-                                                        width: '100%',
-                                                        display: 'flex',
-                                                        flexWrap: 'wrap',
-                                                        flexDirection: 'row',
-                                                        rowGap: 10,
-                                                        columnGap: 10,
-                                                        alignItems: 'center',
-                                                    }}
-                                                >
-                                                    {
-                                                        (currSkill.vals.map((skill, idx) => (
-                                                            <div key={`skill-${idx}}`}
-                                                                onClick={() => {
-                                                                    const skillsCopy: typeof skills = JSON.parse(JSON.stringify(skills))
-                                                                    let skillsFillterValsCopy: typeof skillfilterVals = JSON.parse(JSON.stringify(skillfilterVals))
-                                                                    skillsCopy[currSkillIdx].vals[idx].on = !skillsCopy[currSkillIdx].vals[idx].on
-                                                                    if (skillsCopy[currSkillIdx].vals[idx].on) {
-                                                                        skillsFillterValsCopy.push(skillsCopy[currSkillIdx].vals[idx].value)
-                                                                    } else {
-                                                                        skillsFillterValsCopy = skillsFillterValsCopy.filter((sk) => sk !== skillsCopy[currSkillIdx].vals[idx].value)
-                                                                    }
-                                                                    setSkillsFillterVals(skillsFillterValsCopy)
-                                                                    setSkills(skillsCopy);
-                                                                }}
-                                                                style={{
-                                                                    background: !skill.on ? theme.colors.primary : theme.colors.secondary,
-                                                                    //height: 'min-content',
-                                                                    padding: 8,
-                                                                    borderRadius: '10%',
-                                                                }}
-                                                            > {skill.value}</div>
-
-                                                        )))}
-                                                </div>
-                                            </div>
-                                        )
-                                    })}
-                                </div>
-                                {
-                                    experience.filter((ex) => {
-                                        if (skillfilterVals.length === 0) { return true; }
-                                        for (let x of skillfilterVals) {
-                                            if (ex._skills.includes(x)) { return true; }
-                                        }
-                                        return false
-                                    }).length > 0 &&
-                                    (
-                                        <div
+                                        <div key={`${currSkill.title}-${currSkillIdx}`}
                                             style={{
-                                                width: '100%',
-                                                display: 'flex',
-                                                justifyContent: 'center',
+                                                display: !pdf ? 'flex' : (currSkill.visible ? 'flex' : 'none'),
+
+                                                color: currSkill.visible ? 'inherit' : '#808080',
                                                 flexDirection: 'row',
-                                                fontWeight: 'bold'
+                                                height: 'min-content',
+                                                rowGap: 50,
+                                                columnGap: 10,
+                                                alignItems: 'center',
 
                                             }}
                                         >
-                                            Experience
+                                            <div
+                                                style={{
+                                                    display: 'flex',
+                                                    width: 130,
+                                                    fontWeight: 'bold',
+                                                    textWrap: 'nowrap'
+                                                }}
+                                                //onClick={() => {
+                                                //    const skillCopy: typeof skills = JSON.parse(JSON.stringify(skills))
+                                                //
+                                                //    skillCopy[currSkillIdx].visible = !skillCopy[currSkillIdx].visible
+                                                //
+                                                //    setSkills(skillCopy)
+                                                //}}
+                                            >
+                                                {currSkill.title}
+                                            </div>
+                                            <div
+                                                style={{
+                                                    color: currSkill.visible ? 'inherit' : '#808080',
+                                                    width: '100%',
+                                                    display: 'flex',
+                                                    flexWrap: 'wrap',
+                                                    flexDirection: 'row',
+                                                    rowGap: 10,
+                                                    columnGap: 10,
+                                                    alignItems: 'center',
+                                                }}
+                                            >
+                                                {
+                                                    (currSkill.vals.map((skill, idx) => (
+                                                        <div key={`${currSkillIdx}-skill-${idx}}`}
+                                                            onClick={() => {
+                                                                const skillsCopy: typeof skills = JSON.parse(JSON.stringify(skills))
+                                                                let skillsFillterValsCopy: typeof skillfilterVals = JSON.parse(JSON.stringify(skillfilterVals))
+                                                                skillsCopy[currSkillIdx].vals[idx].on = !skillsCopy[currSkillIdx].vals[idx].on
+                                                                if (skillsCopy[currSkillIdx].vals[idx].on) {
+                                                                    skillsFillterValsCopy.push(skillsCopy[currSkillIdx].vals[idx].value)
+                                                                } else {
+                                                                    skillsFillterValsCopy = skillsFillterValsCopy.filter((sk) => sk !== skillsCopy[currSkillIdx].vals[idx].value)
+                                                                }
+                                                                setSkillsFillterVals(skillsFillterValsCopy)
+                                                                setSkills(skillsCopy);
+                                                            }}
+                                                            style={{
+                                                                background: !skill.on ? theme.colors.primary : theme.colors.secondary,
+                                                                //height: 'min-content',
+                                                                padding: 8,
+                                                                cursor: 'pointer',
+                                                                borderRadius: '10%',
+                                                            }}
+                                                        > {skill.value}</div>
+
+                                                    )))}
+                                            </div>
                                         </div>
                                     )
-                                }
-                                {experience.filter((ex) => {
+                                })}
+                            </div>
+                            {
+                                experience.filter((ex) => {
                                     if (skillfilterVals.length === 0) { return true; }
                                     for (let x of skillfilterVals) {
                                         if (ex._skills.includes(x)) { return true; }
                                     }
                                     return false
-                                }).map((ex, exIdx) => {
-                                    return (
-                                        <div
-                                            style={{
-                                                display: !pdf ? 'flex' : (ex.visible ? 'flex' : 'none'),
-                                                flexDirection: 'column',
-                                                rowGap: 20,
-                                                color: ex.visible ? 'inherit' : '#808080',
-                                            }}
-                                            key={`ex-${exIdx}`}
+                                }).length > 0 &&
+                                (
+                                    <div
+                                        style={{
+                                            width: '100%',
+                                            display: 'flex',
+                                            justifyContent: 'center',
+                                            flexDirection: 'row',
+                                            fontWeight: 'bold'
 
+                                        }}
+                                    >
+                                        Experience
+                                    </div>
+                                )
+                            }
+                            {experience.filter((ex) => {
+                                if (skillfilterVals.length === 0) { return true; }
+                                for (let x of skillfilterVals) {
+                                    if (ex._skills.includes(x)) { return true; }
+                                }
+                                return false
+                            }).map((ex, exIdx) => {
+                                return (
+                                    <div
+                                        style={{
+                                            display: !pdf ? 'flex' : (ex.visible ? 'flex' : 'none'),
+                                            flexDirection: 'column',
+                                            rowGap: 20,
+                                            color: ex.visible ? 'inherit' : '#808080',
+                                        }}
+                                        key={`ex-${exIdx}`}
+
+                                    >
+                                        <div
+
+                                            //onClick={() => {
+                                            //    console.log('ex ', exIdx)
+                                            //    const experienceCopy: typeof experience = JSON.parse(JSON.stringify(experience))
+                                            //    experienceCopy[exIdx].visible = !experienceCopy[exIdx].visible
+                                            //    setExperience(experienceCopy)
+                                            //}}
+
+                                            style={{ fontWeight: 'bold', display: 'flex', flexDirection: 'row', justifyContent: 'space-between' }}
                                         >
                                             <div
-
-                                                onClick={() => {
-                                                    console.log('ex ', exIdx)
-                                                    const experienceCopy: typeof experience = JSON.parse(JSON.stringify(experience))
-                                                    experienceCopy[exIdx].visible = !experienceCopy[exIdx].visible
-                                                    setExperience(experienceCopy)
-                                                }}
-
-                                                style={{ fontWeight: 'bold', display: 'flex', flexDirection: 'row', justifyContent: 'space-between' }}
+                                                style={{ rowGap: 10, fontWeight: 'bold', display: 'flex', flexDirection: 'column', }}
                                             >
-                                                <div
-                                                    style={{ rowGap: 10, fontWeight: 'bold', display: 'flex', flexDirection: 'column', }}
-                                                >
 
-                                                    <p>{ex.company}</p>
-                                                    <p>{ex.position}</p>
+                                                <p>{ex.company}</p>
+                                                <p>{ex.position}</p>
 
-                                                </div>
-
-                                                <div
-                                                    style={{ rowGap: 10, display: 'flex', flexDirection: 'column', justifyContent: 'right', alignItems: 'end' }}
-                                                >
-
-                                                    <p>{ex.localtion}</p>
-                                                    <p>{ex.startDate} - {ex.endDate}</p>
-                                                </div>
                                             </div>
-                                            <div style={{ marginLeft: 20, display: 'flex', flexDirection: 'column', rowGap: 10 }}>
-                                                {ex.description.map((des, desIdx) => {
-                                                    return (
-                                                        <li
-                                                            onClick={() => {
 
-                                                                const experienceCopy: typeof experience = JSON.parse(JSON.stringify(experience))
-                                                                experienceCopy[exIdx].description[desIdx].visible = !experienceCopy[exIdx].description[desIdx].visible
-                                                                setExperience(experienceCopy)
-                                                            }}
-                                                            key={`ex-des${desIdx}`}
-                                                            style={{
-                                                                display: !pdf ? 'list-item' : (des.visible ? 'list-item' : 'none'),
+                                            <div
+                                                style={{ rowGap: 10, display: 'flex', flexDirection: 'column', justifyContent: 'right', alignItems: 'end' }}
+                                            >
 
-                                                                color: des.visible ? 'inherit' : '#808080',
-                                                                listStyleType: 'disc'
-                                                            }}>
-                                                            {des.value}
-                                                        </li>
-                                                    )
-                                                })}
-                                            </div>
-                                            <div style={{ display: 'flex', flexDirection: 'row', justifyContent: 'space-between', flexWrap: 'wrap', marginLeft: 20 }}>
-                                                {skills.map((currSkill) => {
-                                                    return (
-                                                        <>
-                                                            {
-                                                                (currSkill.vals.filter((i) => (ex._skills.includes(i.value))).map((skill, idx) => (
-                                                                    <div key={`ex-skill-${idx}}`}
-                                                                        style={{
-                                                                            background: !skill.on ? theme.colors.primary : theme.colors.secondary,
-                                                                            //height: 'min-content',
-                                                                            padding: 8,
-                                                                            borderRadius: '10%',
-                                                                        }}
-                                                                    > {skill.value}</div>
-                                                                )))}
-                                                        </>
-                                                    )
-                                                })}
-
+                                                <p>{ex.localtion}</p>
+                                                <p>{ex.startDate} - {ex.endDate}</p>
                                             </div>
                                         </div>
-                                    )
-                                })}
-                                {
-                                    projects.filter((pj) => {
-                                        if (skillfilterVals.length === 0) { return true; }
-                                        for (let x of skillfilterVals) {
-                                            if (pj._skills.includes(x)) { return true; }
-                                        }
-                                        return false
-                                    }).length > 0 &&
-                                    (
-                                        <div
-                                            style={{
-                                                width: '100%',
-                                                display: 'flex',
-                                                justifyContent: 'center',
-                                                flexDirection: 'row',
-                                                fontWeight: 'bold'
+                                        <div style={{ marginLeft: 20, display: 'flex', flexDirection: 'column', rowGap: 10 }}>
+                                            {ex.description.map((des, desIdx) => {
+                                                return (
+                                                    <li
+                                                        //onClick={() => {
+                                                        //
+                                                        //    const experienceCopy: typeof experience = JSON.parse(JSON.stringify(experience))
+                                                        //    experienceCopy[exIdx].description[desIdx].visible = !experienceCopy[exIdx].description[desIdx].visible
+                                                        //    setExperience(experienceCopy)
+                                                        //}}
+                                                        key={`ex${exIdx}-des${desIdx}`}
+                                                        style={{
+                                                            display: !pdf ? 'list-item' : (des.visible ? 'list-item' : 'none'),
 
-                                            }}
-                                        >
-                                            Projects
+                                                            color: des.visible ? 'inherit' : '#808080',
+                                                            listStyleType: 'disc'
+                                                        }}>
+                                                        {des.value}
+                                                    </li>
+                                                )
+                                            })}
                                         </div>
-                                    )
-                                }
+                                        <div style={{ display: 'flex', flexDirection: 'row', rowGap: 10, columnGap: 10, flexWrap: 'wrap', marginLeft: 20 }}>
+                                            {skills.map((currSkill) => {
+                                                return (
+                                                    <>
+                                                        {
+                                                            (currSkill.vals.filter((i) => (ex._skills.includes(i.value))).map((skill, idx) => (
+                                                                <div key={`ex${exIdx}-skill-${idx}}`}
+                                                                    style={{
+                                                                        background: !skill.on ? theme.colors.primary : theme.colors.secondary,
+                                                                        //height: 'min-content',
+                                                                        padding: 8,
+                                                                        borderRadius: '10%',
+                                                                    }}
+                                                                > {skill.value}</div>
+                                                            )))}
+                                                    </>
+                                                )
+                                            })}
 
-
-                                {projects.filter((pj) => {
+                                        </div>
+                                    </div>
+                                )
+                            })}
+                            {
+                                projects.filter((pj) => {
                                     if (skillfilterVals.length === 0) { return true; }
                                     for (let x of skillfilterVals) {
                                         if (pj._skills.includes(x)) { return true; }
                                     }
                                     return false
-                                }).map((pj, pjIdx) => {
-                                    return (
+                                }).length > 0 &&
+                                (
+                                    <div
+                                        style={{
+                                            width: '100%',
+                                            display: 'flex',
+                                            justifyContent: 'center',
+                                            flexDirection: 'row',
+                                            fontWeight: 'bold'
+
+                                        }}
+                                    >
+                                        Projects
+                                    </div>
+                                )
+                            }
+
+
+                            {projects.filter((pj) => {
+                                if (skillfilterVals.length === 0) { return true; }
+                                for (let x of skillfilterVals) {
+                                    if (pj._skills.includes(x)) { return true; }
+                                }
+                                return false
+                            }).map((pj, pjIdx) => {
+                                return (
+                                    <div
+                                        style={{
+                                            display: !pdf ? 'flex' : (pj.visible ? 'flex' : 'none'),
+                                            flexDirection: 'column', rowGap: 20,
+                                            color: pj.visible ? 'inherit' : '#808080',
+                                        }}
+                                        key={`pj-${pjIdx}`}
+                                    >
                                         <div
+                                            //onClick={() => {
+                                            //    const projectsCopy: typeof projects = JSON.parse(JSON.stringify(projects))
+                                            //    projectsCopy[pjIdx].visible = !projectsCopy[pjIdx].visible
+                                            //    setProjects(projectsCopy)
+                                            //}}
                                             style={{
-                                                display: !pdf ? 'flex' : (pj.visible ? 'flex' : 'none'),
-                                                flexDirection: 'column', rowGap: 20,
-                                                color: pj.visible ? 'inherit' : '#808080',
+                                                fontWeight: 'bold', display: 'flex', flexDirection: 'row', justifyContent: 'space-between'
                                             }}
-                                            key={`pj-${pjIdx}`}
                                         >
                                             <div
-
-
-                                                onClick={() => {
-                                                    const projectsCopy: typeof projects = JSON.parse(JSON.stringify(projects))
-                                                    projectsCopy[pjIdx].visible = !projectsCopy[pjIdx].visible
-                                                    setProjects(projectsCopy)
-                                                }}
-                                                style={{
-                                                    fontWeight: 'bold', display: 'flex', flexDirection: 'row', justifyContent: 'space-between'
-                                                }}
+                                                style={{ rowGap: 10, fontWeight: 'bold', display: 'flex', flexDirection: 'column', }}
                                             >
-                                                <div
-                                                    style={{ rowGap: 10, fontWeight: 'bold', display: 'flex', flexDirection: 'column', }}
-                                                >
-                                                    <p>{pj.name}</p>
+                                                <p>{pj.name}</p>
 
-                                                </div>
-
-                                                <div
-                                                    style={{ rowGap: 10, display: 'flex', flexDirection: 'column' }}
-                                                >
-                                                    <a style={{ textDecoration: 'none', color: 'inherit' }} href={pj._link}>{pj.linkShow}</a>
-                                                </div>
                                             </div>
-                                            <div style={{ marginLeft: 20, display: 'flex', flexDirection: 'column', rowGap: 10 }}>
-                                                {pj.description.map((des, desIdx) => {
-                                                    return (
-                                                        <li
-                                                            onClick={() => {
-                                                                const projectsCopy: typeof projects = JSON.parse(JSON.stringify(projects))
-                                                                projectsCopy[pjIdx].description[desIdx].visible = !projectsCopy[pjIdx].description[desIdx].visible
-                                                                setProjects(projectsCopy)
-                                                            }}
-                                                            key={`pj-des${desIdx}`}
-                                                            style={{
-                                                                display: !pdf ? 'list-item' : (des.visible ? 'list-item' : 'none'),
-                                                                color: des.visible ? 'inherit' : '#808080',
-                                                                listStyleType: 'disc'
-                                                            }}>
-                                                            {des.value}
-                                                        </li>
-                                                    )
-                                                })}
-                                            </div>
-                                            <div style={{ display: 'flex', flexDirection: 'row', justifyContent: 'space-between', flexWrap: 'wrap', marginLeft: 20 }}>
-                                                {skills.map((currSkill) => {
-                                                    return (
-                                                        <>
-                                                            {
-                                                                (currSkill.vals.filter((i) => (pj._skills.includes(i.value))).map((skill, idx) => (
-                                                                    <div key={`pj-skill-${idx}}`}
-                                                                        style={{
-                                                                            background: !skill.on ? theme.colors.primary : theme.colors.secondary,
-                                                                            //height: 'min-content',
-                                                                            padding: 8,
-                                                                            borderRadius: '10%',
-                                                                        }}
-                                                                    > {skill.value}</div>
-                                                                )))}
-                                                        </>
-                                                    )
-                                                })}
 
+                                            <div
+                                                style={{ rowGap: 10, display: 'flex', flexDirection: 'column' }}
+                                            >
+                                                <a style={{ textDecoration: 'none', color: 'inherit' }} href={pj._link}>{pj.linkShow}</a>
                                             </div>
                                         </div>
-                                    )
-                                })}
+                                        <div style={{ marginLeft: 20, display: 'flex', flexDirection: 'column', rowGap: 10 }}>
+                                            {pj.description.map((des, desIdx) => {
+                                                return (
+                                                    <li
+                                                        //onClick={() => {
+                                                        //    const projectsCopy: typeof projects = JSON.parse(JSON.stringify(projects))
+                                                        //    projectsCopy[pjIdx].description[desIdx].visible = !projectsCopy[pjIdx].description[desIdx].visible
+                                                        //    setProjects(projectsCopy)
+                                                        //}}
+                                                        key={`pj-${pjIdx}-des${desIdx}`}
+                                                        style={{
+                                                            display: !pdf ? 'list-item' : (des.visible ? 'list-item' : 'none'),
+                                                            color: des.visible ? 'inherit' : '#808080',
+                                                            listStyleType: 'disc'
+                                                        }}>
+                                                        {des.value}
+                                                    </li>
+                                                )
+                                            })}
+                                        </div>
+                                        <div style={{ display: 'flex', flexDirection: 'row', rowGap: 10, flexWrap: 'wrap', marginLeft: 20 }}>
+                                            {skills.map((currSkill) => {
+                                                return (
+                                                    <>
+                                                        {
+                                                            (currSkill.vals.filter((i) => (pj._skills.includes(i.value))).map((skill, idx) => (
+                                                                <div key={`pj${pjIdx}-skill-${idx}}`}
+                                                                    style={{
+                                                                        background: !skill.on ? theme.colors.primary : theme.colors.secondary,
+                                                                        //height: 'min-content',
+                                                                        padding: 8,
+                                                                        borderRadius: '10%',
+                                                                    }}
+                                                                > {skill.value}</div>
+                                                            )))}
+                                                    </>
+                                                )
+                                            })}
 
-                            </div>
+                                        </div>
+                                    </div>
+                                )
+                            })}
 
                         </div>
+
                     </div>
                 </div>
-            </div >
-        )
+            </div>
+        </div >
+    )
 
-    }
-
-
-    return webAndPdf(false)
 
 }

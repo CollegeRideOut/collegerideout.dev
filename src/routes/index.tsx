@@ -11,7 +11,6 @@ export const Route = createFileRoute('/')({
     component: Index,
 })
 
-const github_profile_pic = 'https://avatars.githubusercontent.com/u/32503905?v=4&size=64'
 
 const user = 'CollegeRideOut'
 const query = `
@@ -41,7 +40,15 @@ const allLinks = [
 
 function Index() {
     const { vals: theme } = useContext(ThemeContext);
-    const [leetData, setLeetData] = useState<any>(null)
+    const [leetData, setLeetData] = useState<any>({
+        difficult: [
+            { difficulty: 'All', count: 0 },
+            { difficulty: 'Easy', count: 100 },
+            { difficulty: 'Medium', count: 54 },
+            { difficulty: 'Hard', count: 6 },
+        ],
+        submissionCalendar: []
+    })
     const [githubData, setGithubData] = useState<any>(null)
 
     useEffect(() => {
@@ -82,7 +89,8 @@ function Index() {
 
                 return { date: new Date(sub[0] * 1000).toLocaleDateString(), count: sub[1] }
             })
-            setLeetData(leetJsonData)
+            setLeetData({ difficult: leetJsonData.data.matchedUser.submitStats.acSubmissionNum, submissionCalendar: leetJsonData.data.matchedUser.submissionCalendar })
+
         }
         getData()
 
@@ -137,7 +145,7 @@ function Index() {
                             <div style={{
                             }}>
                                 <img
-                                    src={github_profile_pic}
+                                    src={'../../public/profile.png'}
                                     style={{
                                         height: 200,
                                         width: 200,
@@ -165,10 +173,13 @@ function Index() {
                                     width: '70%'
 
                                 }}>
-                                    {allLinks.map((l) => {
-                                        return <a
+                                    {allLinks.map((l, idx) => {
+                                        return <a 
+                                            key={`a-${idx}`}
                                             style={{ color: 'inherit' }}
-                                            href={l.link}>{l.icon}</a>
+                                            href={l.link}
+                                            target="_blank"
+                                        >{l.icon}</a>
                                     })}
 
                                 </div>
@@ -205,14 +216,15 @@ function Index() {
                                         textAlign: 'center',
                                     }}
                                 >
-                                    {leetData && leetData.data.matchedUser.submitStats.acSubmissionNum.map((stat: any, idx: any) => {
+                                    {leetData.difficult.map((stat: any, idx: any) => {
                                         return (
                                             <div
+                                            key={`diff-${idx}`}
                                                 style={{
                                                     height: 50,
                                                     width: '100%',
                                                     textAlign: 'center',
-                                                    borderRight: idx !== leetData.data.matchedUser.submitStats.acSubmissionNum.length - 1 ? `1px solid ${theme.colors.text}` : '',
+                                                    borderRight: idx !== leetData.difficult.length - 1 ? `1px solid ${theme.colors.text}` : '',
                                                     display: 'flex',
                                                     flexDirection: 'column',
                                                     alignItems: 'center',
@@ -230,7 +242,7 @@ function Index() {
                                 </div>
                                 <HeatMap
                                     value={leetData ? (
-                                        leetData.data.matchedUser.submissionCalendar
+                                        leetData.submissionCalendar
                                     ) : []}
                                     startDate={(() => {
                                         let x = new Date()
