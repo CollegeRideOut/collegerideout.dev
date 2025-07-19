@@ -53,7 +53,7 @@ function Index() {
 
     const isTabletOrMobile = useMediaQuery({ query: '(max-width: 1224px)' })
     const isMobile = useMediaQuery({ query: '(max-width: 500px)' })
-    useEffect(()=>{console.log(isMobile)})
+    useEffect(() => { console.log(isMobile) })
 
     useEffect(() => {
         async function getData() {
@@ -254,7 +254,16 @@ function Index() {
                                         ) : []}
                                         startDate={(() => {
                                             let x = new Date()
-                                            x.setFullYear(x.getFullYear() - 1)
+
+
+                                            if (isMobile) {
+                                                x.setMonth(x.getMonth() - 4)
+                                            } else if (isTabletOrMobile) {
+                                                x.setMonth(x.getMonth() - 8)
+                                            } else {
+                                                x.setFullYear(x.getFullYear() - 1)
+                                            }
+
                                             return x
                                         })()}
                                         width={isTabletOrMobile ? (isMobile ? 300 : 500) : 750}
@@ -299,14 +308,21 @@ function Index() {
                                     ) : []}
                                     startDate={(() => {
                                         let x = new Date()
-                                        x.setFullYear(x.getFullYear() - 1)
+
+                                        if (isMobile) {
+                                            x.setMonth(x.getMonth() - 4)
+                                        } else if (isTabletOrMobile) {
+                                            x.setMonth(x.getMonth() - 8)
+                                        } else {
+                                            x.setFullYear(x.getFullYear() - 1)
+                                        }
                                         return x
                                     })()}
-                                        width={isTabletOrMobile ? (isMobile ? 300 : 500) : 750}
+                                    width={isTabletOrMobile ? (isMobile ? 300 : 500) : 750}
                                     style={{ color: theme.colors.text, display: 'flex', justifyContent: 'center' }}
                                     endDate={(() => {
                                         let x = new Date()
-                                        x.setMonth(x.getMonth() )
+                                        //x.setMonth(x.getMonth())
                                         return x
                                     })()}
                                     weekLabels={['', '', '', '', '', '', '']}
