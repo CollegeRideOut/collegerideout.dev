@@ -262,10 +262,11 @@ function Index() {
                                             return x
                                         })()}
                                         width={isTabletOrMobile ? (isMobile ? 300 : 500) : 750}
-                                        style={{ color: theme.colors.text, }}
                                         endDate={new Date()}
                                         weekLabels={['', '', '', '', '', '', '']}
                                         panelColors={theme.colors.heatmap}
+
+                                        style={{ minHeight: 200 }}
 
                                     />
                                 </div>
@@ -282,7 +283,6 @@ function Index() {
                                     display: 'flex',
                                     flexDirection: 'column',
                                     width: '100%',
-                                    height: 1000,
                                     alignItems: 'center',
                                     rowGap: 20
                                     //
@@ -323,18 +323,16 @@ function Index() {
                                         //x.setMonth(x.getMonth())
                                         return x
                                     })()}
+                                    style={{ minHeight: 200 }}
                                     weekLabels={['', '', '', '', '', '', '']}
                                     panelColors={theme.colors.heatmap}
 
                                 />
                             </div>
                         </div>
-
-
                     </div>
                 </div>
             </div>
-            <div>TOP OF THE MORNING MATE</div>
         </div>
     )
 }
