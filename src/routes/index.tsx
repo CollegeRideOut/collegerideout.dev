@@ -271,11 +271,14 @@ function Index() {
 
 
                         </div>
-                        <div>
+                        <div
+                            style={{ width: '100%', display: 'flex', flexDirection: 'row', justifyContent: 'center' }}
+                        >
                             <div
                                 style={{
                                     display: 'flex',
                                     flexDirection: 'column',
+                                    width: '100%',
 
                                     alignItems: 'center',
                                     rowGap: 20
@@ -313,7 +316,6 @@ function Index() {
                                         return x
                                     })()}
                                     width={isTabletOrMobile ? (isMobile ? 300 : 500) : 750}
-                                    style={{ color: theme.colors.text, display: 'flex', justifyContent: 'center' }}
                                     endDate={(() => {
                                         let x = new Date()
                                         //x.setMonth(x.getMonth())
