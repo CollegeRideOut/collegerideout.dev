@@ -188,28 +188,29 @@ const intProjects = [
 function Work() {
     const { vals: theme } = useContext(ThemeContext);
     const [skills, setSkills] = useState(initSkills);
-    const [experience, ] = useState(initExperience)
-    const [projects, ] = useState(intProjects)
+    const [experience,] = useState(initExperience)
+    const [projects,] = useState(intProjects)
     const [skillfilterVals, setSkillsFillterVals] = useState<string[]>([])
 
-        //const isDesktopOrLaptop = useMediaQuery({
-        //    query: '(min-width: 1224px)'
-        //})
-        //const isBigScreen = useMediaQuery({ query: '(min-width: 1824px)' })
-        const isTabletOrMobile = useMediaQuery({ query: '(max-width: 1224px)' })
-        //const isMobile = useMediaQuery({ query: '(max-width: 767px)' })
-        //const isPortrait = useMediaQuery({ query: '(orientation: portrait)' })
-        //const isRetina = useMediaQuery({ query: '(min-resolution: 2dppx)' })
+    //const isDesktopOrLaptop = useMediaQuery({
+    //    query: '(min-width: 1224px)'
+    //})
+    //const isBigScreen = useMediaQuery({ query: '(min-width: 1824px)' })
+    const isTabletOrMobile = useMediaQuery({ query: '(max-width: 1224px)' })
+    const isMobile = useMediaQuery({ query: '(max-width: 500px)' })
+    //const isMobile = useMediaQuery({ query: '(max-width: 767px)' })
+    //const isPortrait = useMediaQuery({ query: '(orientation: portrait)' })
+    //const isRetina = useMediaQuery({ query: '(min-resolution: 2dppx)' })
 
     return (
         <div id={'resume'} style={{
             width: '100%',
             flexDirection: 'column',
 
+            fontSize: isMobile ? 12 : (isTabletOrMobile ? 16 : 20),
             marginTop: 40,
             display: 'flex',
             flex: '1 1 auto',
-            marginBottom: 100,
             textWrap: 'nowrap',
             height: '100%',
             color: theme.colors.text
@@ -276,11 +277,11 @@ function Work() {
                                                 display: !pdf ? 'flex' : (currSkill.visible ? 'flex' : 'none'),
 
                                                 color: currSkill.visible ? 'inherit' : '#808080',
-                                                flexDirection: isTabletOrMobile ? 'column': 'row',
+                                                flexDirection: isTabletOrMobile ? 'column' : 'row',
                                                 height: 'min-content',
-                                                rowGap: 50,
+                                                rowGap: 10,
                                                 columnGap: 10,
-                                                alignItems: isTabletOrMobile ? 'start': 'center',
+                                                alignItems: isTabletOrMobile ? 'start' : 'center',
 
                                             }}
                                         >
@@ -291,13 +292,13 @@ function Work() {
                                                     fontWeight: 'bold',
                                                     textWrap: 'nowrap'
                                                 }}
-                                                //onClick={() => {
-                                                //    const skillCopy: typeof skills = JSON.parse(JSON.stringify(skills))
-                                                //
-                                                //    skillCopy[currSkillIdx].visible = !skillCopy[currSkillIdx].visible
-                                                //
-                                                //    setSkills(skillCopy)
-                                                //}}
+                                            //onClick={() => {
+                                            //    const skillCopy: typeof skills = JSON.parse(JSON.stringify(skills))
+                                            //
+                                            //    skillCopy[currSkillIdx].visible = !skillCopy[currSkillIdx].visible
+                                            //
+                                            //    setSkills(skillCopy)
+                                            //}}
                                             >
                                                 {currSkill.title}
                                             </div>

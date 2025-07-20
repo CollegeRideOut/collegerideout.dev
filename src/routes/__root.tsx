@@ -254,7 +254,7 @@ export const Route = createRootRoute({
                             style={{
                                 display: 'flex',
                                 flexDirection: 'column',
-
+                                paddingBottom: 100,
                                 maxWidth: 1824,
                                 height: '100%',
                                 flex: '1 1 auto',
