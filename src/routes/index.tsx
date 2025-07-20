@@ -107,6 +107,7 @@ function Index() {
                     flexDirection: 'row',
                     justifyContent: 'center',
                     textWrap: 'wrap',
+                    height: '100%',
                     whiteSpace: 'pre-line',
 
                     wordWrap: 'break-word',
@@ -118,6 +119,7 @@ function Index() {
                         //backgroundColor: theme.colors.primary,
                         //borderLeft: `1px solid ${theme.colors.text}`,
 
+                        height: '100%',
                         //width: '70%',
 
                     }}
@@ -125,6 +127,7 @@ function Index() {
                     <div style={{
                         display: 'flex',
 
+                        height: '100%',
                         rowGap: 40,
                         flexDirection: 'column',
                         //padding: 40,
@@ -181,7 +184,7 @@ function Index() {
                             </div>
 
                         </div>
-                        <div style={{ width: '100%' }}>
+                        <div style={{ width: '100%', height: '100%' }}>
 
 
                             <div
@@ -279,7 +282,7 @@ function Index() {
                                     display: 'flex',
                                     flexDirection: 'column',
                                     width: '100%',
-
+                                    height: 1000,
                                     alignItems: 'center',
                                     rowGap: 20
                                     //
@@ -292,7 +295,6 @@ function Index() {
                                     style={{
                                         display: 'flex',
                                         width: '100%',
-                                        height: 'max-content',
                                         justifyContent: 'center',
                                         alignItems: 'center',
                                         marginBottom: 20,
