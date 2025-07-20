@@ -58,7 +58,7 @@ function Index() {
     useEffect(() => {
         async function getData() {
 
-            const leetdata = await fetch('/api/leetcode', {
+            const leetdata = await fetch('https://leetcode.com/graphql', {
                 method: 'POST',
                 headers: {
                     'Content-Type':
