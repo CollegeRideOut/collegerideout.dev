@@ -128,13 +128,13 @@ function Index() {
                         display: 'flex',
 
                         height: '100%',
-                        rowGap: 40,
                         flexDirection: 'column',
                         //padding: 40,
                     }}>
                         <div style={{
                             width: '100%',
 
+                            marginBottom: 40,
                             display: 'flex',
                             flexDirection: isTabletOrMobile ? 'column' : 'row',
                             alignItems: 'center',
@@ -184,7 +184,7 @@ function Index() {
                             </div>
 
                         </div>
-                        <div style={{ width: '100%', height: '100%' }}>
+                        <div style={{ width: '100%', }}>
 
 
                             <div
@@ -266,7 +266,7 @@ function Index() {
                                         weekLabels={['', '', '', '', '', '', '']}
                                         panelColors={theme.colors.heatmap}
 
-                                        style={{ minHeight: 200 }}
+                                        style={{ minHeight: 150 }}
 
                                     />
                                 </div>
@@ -284,7 +284,6 @@ function Index() {
                                     flexDirection: 'column',
                                     width: '100%',
                                     alignItems: 'center',
-                                    rowGap: 20
                                     //
                                     //border: `1px solid ${theme.colors.text}`
                                 }}
@@ -323,7 +322,7 @@ function Index() {
                                         //x.setMonth(x.getMonth())
                                         return x
                                     })()}
-                                    style={{ minHeight: 200 }}
+                                    style={{ minHeight: 150 }}
                                     weekLabels={['', '', '', '', '', '', '']}
                                     panelColors={theme.colors.heatmap}
 
