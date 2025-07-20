@@ -77,12 +77,14 @@ function Index() {
 
                 return { date: new Date(sub[0] * 1000).toLocaleDateString(), count: sub[1] }
             })
-            setLeetData({ difficult: [
-            { difficulty: 'All', count: leetJsonData.totalSolved },
-            { difficulty: 'Easy', count: leetJsonData.easySolved },
-            { difficulty: 'Medium', count: leetJsonData.mediumSolved },
-            { difficulty: 'Hard', count: leetJsonData.hardSolved },
-        ], submissionCalendar: leetJsonData.submissionCalendar })
+            setLeetData({
+                difficult: [
+                    { difficulty: 'All', count: leetJsonData.totalSolved },
+                    { difficulty: 'Easy', count: leetJsonData.easySolved },
+                    { difficulty: 'Medium', count: leetJsonData.mediumSolved },
+                    { difficulty: 'Hard', count: leetJsonData.hardSolved },
+                ], submissionCalendar: leetJsonData.submissionCalendar
+            })
 
         }
         getData()
@@ -224,12 +226,13 @@ function Index() {
                                                     display: 'flex',
                                                     flexDirection: 'column',
                                                     alignItems: 'center',
+                                                    textWrap: 'nowrap',
                                                     justifyContent: 'center',
                                                     rowGap: 10
                                                 }}
                                             >
                                                 <p
-                                                    style={{ fontSize: 20 }}
+                                                    style={{ fontSize: isTabletOrMobile ? 16 : 20 }}
                                                 >{stat.difficulty}</p>
                                                 <p>{stat.count}</p>
                                             </div>
