@@ -158,7 +158,7 @@ function Index() {
 
                                     alignItems: 'center'
                                 }}>
-                                <p style={{ fontSize: isTabletOrMobile ? 'clamp(3rem, 10vw, 3rem)' : 60, fontWeight: 'bold' }}>Full-Stack Developer</p>
+                                <p style={{ fontSize: isTabletOrMobile ? 'clamp(1.7rem, 10vw, 1.7rem)' : 60, fontWeight: 'bold' }}>Full-Stack Developer</p>
                                 <div style={{
                                     display: 'flex',
                                     flexDirection: 'row',
@@ -286,8 +286,10 @@ function Index() {
                                     style={{
                                         display: 'flex',
                                         width: '100%',
+                                        height: 'max-content',
                                         justifyContent: 'center',
                                         alignItems: 'center',
+                                        marginBottom: 20,
                                         fontSize: 30
                                     }}
                                 >Github Stats</div>

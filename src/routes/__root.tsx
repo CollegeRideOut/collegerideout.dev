@@ -254,7 +254,6 @@ export const Route = createRootRoute({
                             style={{
                                 display: 'flex',
                                 flexDirection: 'column',
-                                paddingBottom: 100,
                                 maxWidth: 1824,
                                 height: '100%',
                                 flex: '1 1 auto',
@@ -264,10 +263,10 @@ export const Route = createRootRoute({
                             }}
                         >
                             <Outlet />
+                            <div style={{ height: 1, marginBottom: 20 }}></div>
                         </div>
                     </div>
                 </ThemeContext.Provider>
-                <div style={{ height: 1 }}></div>
             </div>
         )
     },
