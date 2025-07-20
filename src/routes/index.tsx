@@ -149,7 +149,7 @@ function Index() {
                             <div style={{
                             }}>
                                 <img
-                                    src={'../../public/profile.png'}
+                                    src={'/profile.png'}
                                     style={{
                                         height: 200,
                                         width: 200,
