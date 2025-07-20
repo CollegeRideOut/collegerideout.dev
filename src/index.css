@@ -32,11 +32,11 @@ html{
     height: 100%;
 }
 body {
-    overscroll-behavior: none;
     height: 100%;
 	line-height: 1;
     display: flex;
     flex-flow: column;
+overflow: visible;
     min-height: 100%;
 }
 ol, ul {
