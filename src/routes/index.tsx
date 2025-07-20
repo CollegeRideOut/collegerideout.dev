@@ -158,7 +158,7 @@ function Index() {
 
                                     alignItems: 'center'
                                 }}>
-                                <p style={{ fontSize: isTabletOrMobile ? '10vw' : 60, fontWeight: 'bold' }}>Full-Stack Developer</p>
+                                <p style={{ fontSize: isTabletOrMobile ? 'clamp(3rem, 10vw, 3rem)' : 60, fontWeight: 'bold' }}>Full-Stack Developer</p>
                                 <div style={{
                                     display: 'flex',
                                     flexDirection: 'row',

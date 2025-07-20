@@ -132,10 +132,10 @@ export const Route = createRootRoute({
         const linkStyle: React.CSSProperties = { textDecoration: 'none', color: theme.colors.text, fontSize: 20 }
         const menuLinks = (<>
 
-            <Link to="/" style={{ ...linkStyle, fontSize: 14 }} onClick={()=>setToggleDropDown(false)}>
+            <Link to="/" style={{ ...linkStyle, fontSize: 14 }} onClick={() => setToggleDropDown(false)}>
                 HOME
             </Link>
-            <Link to="/work" style={{ ...linkStyle, fontSize: 14 }} onClick={()=>setToggleDropDown(false)}>
+            <Link to="/work" style={{ ...linkStyle, fontSize: 14 }} onClick={() => setToggleDropDown(false)}>
                 RESUME
             </Link>
         </>)
@@ -267,6 +267,7 @@ export const Route = createRootRoute({
                         </div>
                     </div>
                 </ThemeContext.Provider>
+                <div style={{ height: 1 }}></div>
             </div>
         )
     },
