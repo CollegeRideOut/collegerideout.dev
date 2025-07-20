@@ -10,25 +10,16 @@ import { useMediaQuery } from 'react-responsive';
 export const Route = createFileRoute('/')({
     component: Index,
 })
+//import type { Schema } from "./amplify/data/resource"
+//import { Amplify } from "aws-amplify"
+//import { generateClient } from "aws-amplify/api"
+//import outputs from "./amplify_outputs.json"
+//
+//Amplify.configure(outputs)
+//
+//const client = generateClient<Schema>()
+//
 
-
-const user = 'CollegeRideOut'
-const query = `
-{ 
-    matchedUser(username: "CollegeRideOut") {
-        username
-
-        submissionCalendar
-        submitStats: submitStatsGlobal {
-            acSubmissionNum {
-                difficulty
-                count
-                submissions
-            }
-        }
-    }
-}
-`
 
 const iconSize = 50
 const allLinks = [
@@ -53,32 +44,26 @@ function Index() {
 
     const isTabletOrMobile = useMediaQuery({ query: '(max-width: 1224px)' })
     const isMobile = useMediaQuery({ query: '(max-width: 500px)' })
-    useEffect(() => { console.log(isMobile) })
 
     useEffect(() => {
         async function getData() {
-
-            const leetdata = await fetch('https://leetcode.com/graphql', {
-                method: 'POST',
+            const leetdata = await fetch('https://leetcode-stats-api.herokuapp.com/CollegeRideOut', {
+                method: 'GET',
                 headers: {
                     'Content-Type':
                         'application/json',
                     'Referer': 'https://leetcode.com',
                 },
-                body: JSON.stringify({
-                    query: query,
-                }),
             })
 
-            const githubdata = await fetch(`https://github-contributions-api.jogruber.de/v4/${user}?`,
-                {
-                    method: 'GET',
-                    headers: {
-                        'Content-Type':
-                            'application/json',
-                    }
-                }
-            )
+            const githubdata = await fetch('https://github-contributions-api.jogruber.de/v4/CollegeRideOut?y=all', {
+                method: 'GET',
+                headers: {
+                    'Content-Type':
+                        'application/json',
+                    'Referer': 'https://leetcode.com',
+                },
+            })
             const githubJsonData = await githubdata.json();
             const leetJsonData = await leetdata.json()
 
@@ -88,12 +73,16 @@ function Index() {
             }).filter((g: any) => { return g.count > 0 })
 
             setGithubData(githubJsonData)
-            leetJsonData.data.matchedUser.submissionCalendar = JSON.parse(leetJsonData.data.matchedUser.submissionCalendar)
-            leetJsonData.data.matchedUser.submissionCalendar = Object.entries(leetJsonData.data.matchedUser.submissionCalendar).map((sub: any) => {
+            leetJsonData.submissionCalendar = Object.entries(leetJsonData.submissionCalendar).map((sub: any) => {
 
                 return { date: new Date(sub[0] * 1000).toLocaleDateString(), count: sub[1] }
             })
-            setLeetData({ difficult: leetJsonData.data.matchedUser.submitStats.acSubmissionNum, submissionCalendar: leetJsonData.data.matchedUser.submissionCalendar })
+            setLeetData({ difficult: [
+            { difficulty: 'All', count: leetJsonData.totalSolved },
+            { difficulty: 'Easy', count: leetJsonData.easySolved },
+            { difficulty: 'Medium', count: leetJsonData.mediumSolved },
+            { difficulty: 'Hard', count: leetJsonData.hardSolved },
+        ], submissionCalendar: leetJsonData.submissionCalendar })
 
         }
         getData()
